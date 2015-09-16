@@ -2,8 +2,9 @@ import java.io.*;
 import javax.imageio.ImageIO;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
+import java.awt.Color;
 
-public class Outline {
+public class outline {
 
 	public static void main(String [] args) throws Exception{
 		
@@ -15,6 +16,13 @@ public class Outline {
 		if( !file.exists() ) {
 			System.exit(0);
 		}	
+	
+		//Creating the border color
+		int a = 0;
+		int r = 0;
+		int g = 0;
+		int b = 0;
+		Color border = new Color(r,g,b,a);
 	
 		//Height and Width of the Image
 		int w = image.getWidth();
@@ -30,11 +38,16 @@ public class Outline {
 				int blue = (pixel) & 0xff;
 				if(i == 0 || i == h-1 || j == 0 || j == w-1)
 				{
-					System.out.println("x,y: " + j + ", " + i);
-					System.out.println("argb: " + alpha + ", " + red + ", " + green + ", " + blue);
+					//System.out.println("x,y: " + j + ", " + i);
+					//System.out.println("argb: " + alpha + ", " + red + ", " + green + ", " + blue);
+					image.setRGB(j,i,border.getRGB());
 				}
 			}
 		}
+		
+		File output = new File("output.png");
+		ImageIO.write(image, "png", output);
+		
 	}
 }
 
