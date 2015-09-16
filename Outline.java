@@ -23,13 +23,16 @@ public class Outline {
 	
 		for (int i = 0; i < h; i++) {
 			for (int j = 0; j < w; j++) {
-				System.out.println("x,y: " + j + ", " + i);
 				int pixel = image.getRGB(j, i);
 				int alpha = (pixel >> 24) & 0xff;
 				int red = (pixel >> 16) & 0xff;
 				int green = (pixel >> 8) & 0xff;
 				int blue = (pixel) & 0xff;
-				System.out.println("argb: " + alpha + ", " + red + ", " + green + ", " + blue);
+				if(i == 0 || i == h-1 || j == 0 || j == w-1)
+				{
+					System.out.println("x,y: " + j + ", " + i);
+					System.out.println("argb: " + alpha + ", " + red + ", " + green + ", " + blue);
+				}
 			}
 		}
 	}
