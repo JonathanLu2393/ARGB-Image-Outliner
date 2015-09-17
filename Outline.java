@@ -5,12 +5,12 @@ import java.io.IOException;
 import java.awt.Color;
 import java.util.Scanner;
 
-public class outline {
+public class Outline {
 
 	public static void main(String [] args) throws Exception{
 		
 		//Input image, has to be in ARGB format
-		File file = new File("test.png");
+		File file = new File("IntelLogo.png");
 		BufferedImage image =  ImageIO.read(file);
 		
 		//Check if file exists
