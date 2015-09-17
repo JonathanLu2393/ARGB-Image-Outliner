@@ -38,34 +38,35 @@ public class Outline {
 		//Height and Width of the Image
 		int w = image.getWidth();
 		int h = image.getHeight();
+		
+		int[][] border_pixels = new int[w][h];
 	
 		//loops through all the pixels
 		for (int i = 0; i < h; i++) {
 			for (int j = 0; j < w; j++) {
-				
 				if(i == 0) {
-					if(image.getRGB(j,i) != -1) {
+					if(image.getRGB(j,i) != 0) {
 						//sets the border pixels to desired color
 						image.setRGB(j,i,border.getRGB());
 					}
 				}
 				
 				if(i == h-1) {
-					if(image.getRGB(j,i) != -1) {
+					if(image.getRGB(j,i) != 0) {
 						//sets the border pixels to desired color
 						image.setRGB(j,i,border.getRGB());
 					}
 				}
 				
 				if(j == 0) {
-					if(image.getRGB(j,i) != -1) {
+					if(image.getRGB(j,i) != 0) {
 						//sets the border pixels to desired color
 						image.setRGB(j,i,border.getRGB());
 					}
 				}
 				
 				if(j == w-1) {
-					if(image.getRGB(j,i) != -1) {
+					if(image.getRGB(j,i) != 0) {
 						//sets the border pixels to desired color
 						image.setRGB(j,i,border.getRGB());
 					}
@@ -77,24 +78,37 @@ public class Outline {
 					int above = image.getRGB(j,i+1);
 					int under = image.getRGB(j,i-1);
 					
-					if(before == -1 || after == -1 || above == -1 || under == -1) {
+					if(before == 0 || after == 0 || above == 0 || under == 0) {
 						
-						if(image.getRGB(j,i) != -1) {
-						//sets the border pixels to desired color
-						image.setRGB(j,i,border.getRGB());
+						if(image.getRGB(j,i) != 0) {
+							//sets the border pixels to desired color
+							border_pixels[j][i] = 1;
 						}
 					}
 				}
-				
-				/*
-				finds the border pixels
-				if(i == 0 || i == h-1 || j == 0 || j == w-1)
-				{
-					//sets the border pixels to desired color
-					//image.setRGB(j,i,border.getRGB());
-				}*/
+			
+			
+			/*  Prints out ARGB values of all pixels */ /*
+				int pixel = image.getRGB(j, i);
+ 				int alpha = (pixel >> 24) & 0xff;
+ 				int red = (pixel >> 16) & 0xff;
+ 				int green = (pixel >> 8) & 0xff;
+ 				int blue = (pixel) & 0xff;
+				System.out.println("x,y: " + j + ", " + i);
+				System.out.println("argb: " + alpha + ", " + red + ", " + green + ", " + blue);
+			*/
 			}
 		}
+		
+		
+		for (int i = 0; i < h; i++) {
+			for (int j = 0; j < w; j++) {
+				if(border_pixels[j][i] == 1) {
+					image.setRGB(j,i,border.getRGB());
+				}
+			}
+		}
+		
 		
 		File output = new File("output.png");
 		ImageIO.write(image, "png", output);	
