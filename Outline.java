@@ -10,7 +10,7 @@ public class outline {
 	public static void main(String [] args) throws Exception{
 		
 		//Input image, has to be in ARGB format
-		File file = new File("input_image.png");
+		File file = new File("test.png");
 		BufferedImage image =  ImageIO.read(file);
 		
 		//Check if file exists
@@ -42,13 +42,57 @@ public class outline {
 		//loops through all the pixels
 		for (int i = 0; i < h; i++) {
 			for (int j = 0; j < w; j++) {
+				
+				if(i == 0) {
+					if(image.getRGB(j,i) != -1) {
+						//sets the border pixels to desired color
+						image.setRGB(j,i,border.getRGB());
+					}
+				}
+				
+				if(i == h-1) {
+					if(image.getRGB(j,i) != -1) {
+						//sets the border pixels to desired color
+						image.setRGB(j,i,border.getRGB());
+					}
+				}
+				
+				if(j == 0) {
+					if(image.getRGB(j,i) != -1) {
+						//sets the border pixels to desired color
+						image.setRGB(j,i,border.getRGB());
+					}
+				}
+				
+				if(j == w-1) {
+					if(image.getRGB(j,i) != -1) {
+						//sets the border pixels to desired color
+						image.setRGB(j,i,border.getRGB());
+					}
+				}
 
-				//finds the border pixels
+				else if(i > 0 && i < h-1 && j > 0 && j < w-1){
+					int before = image.getRGB(j-1,i);
+					int after = image.getRGB(j+1,i);
+					int above = image.getRGB(j,i+1);
+					int under = image.getRGB(j,i-1);
+					
+					if(before == -1 || after == -1 || above == -1 || under == -1) {
+						
+						if(image.getRGB(j,i) != -1) {
+						//sets the border pixels to desired color
+						image.setRGB(j,i,border.getRGB());
+						}
+					}
+				}
+				
+				/*
+				finds the border pixels
 				if(i == 0 || i == h-1 || j == 0 || j == w-1)
 				{
 					//sets the border pixels to desired color
-					image.setRGB(j,i,border.getRGB());
-				}
+					//image.setRGB(j,i,border.getRGB());
+				}*/
 			}
 		}
 		
